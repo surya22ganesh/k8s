@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deployment
+spec:
+  selector:
+    matchLabels:
+      app: httpd
+  replicas: 2 # no of pods.
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd-container
+        image: httpd
+        ports:
+        - containerPort: 80   # Apache/httpd runs on port 80.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd-deployment-np-service
+spec:
+  type: NodePort
+  selector:
+    # app.kubernetes.io/name: httpd
+    app: httpd
+  ports:
+    - port: 80
+      # By default and for convenience, the `targetPort` is set to
+      # the same value as the `port` field.
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30008
+
+# CHANGE THE SECURITY GROUP OF THE WORKER NODES.
+# worker node server publicip:nodeport eg ) http://3.145.38.155:30008/
