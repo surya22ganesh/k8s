@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment1
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1 # no of pods
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 3306
+              protocol: TCP 
+          volumeMounts:
+          - name: myvolume
+            mountPath: "/etc/myvolume"
+            readOnly: true 
+      volumes: 
+      - name: myvolume
+        secret: 
+         secretName: mysecret 
