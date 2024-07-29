@@ -1,0 +1,7 @@
+1) create cm resource using 
+
+kubectl create cm cmFileName --from-file=sampleconf.conf   # creates config map from , configuration file.
+
+2) kubectl get cm
+
+3) attach the cm resource in deploy strategy under a pod/container.
