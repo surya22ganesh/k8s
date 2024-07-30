@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volume-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1 # no of pods
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: httpd-container
+          image: httpd
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: myvolume
+              mountPath: "/etc/myk8svolume" # if directory is present it will use it or will be created
+        - name: tomcat-container
+          image: tomcat
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: myvolume
+              mountPath: "/etc/myk8svolume" # if directory is present it will use it or will be created
+      volumes:
+        - name: myvolume
+          hostPath:
+            path: /etc/k8shttpddata # if directory is present it will use it or will be created on WORKER NODE
