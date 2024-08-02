@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zoncoffee-deployment
+  namespace: test
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  selector:
+    matchLabels:
+      app: zoncoffee
+  template:
+    metadata:
+      labels:
+        app: zoncoffee
+    spec:
+      containers:
+      - name: zoncoffee-container
+        image: surya22ganesh/zoncoffee:v1
+        env:
+        - name: env_name1
+          value: value1
+        - name: env_name2
+          value: value2
+        envFrom: # to set entire env variables from the secret.
+            - secretRef:
+                name: k8sopaquesecret
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zoncoffee-lb
+  namespace: test
+spec:
+  type: LoadBalancer
+  selector: 
+    app: zoncoffee
+  ports:
+    - port: 81         # can be any port
+      targetPort: 80   # zoncoffee image port 
+
+

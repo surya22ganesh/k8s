@@ -1,23 +1,3 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpd-deployment
-spec:
-  selector:
-    matchLabels:
-      app: httpd
-  replicas: 2 # no of pods.
-  template:
-    metadata:
-      labels:
-        app: httpd
-    spec:
-      containers:
-      - name: httpd-container
-        image: httpd
-        ports:
-        - containerPort: 80   # Apache/httpd runs on port 80.
----
 apiVersion: v1
 kind: Service
 metadata:

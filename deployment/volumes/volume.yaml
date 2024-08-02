@@ -26,3 +26,5 @@ spec:
       - name: myvolume
         secret: 
          secretName: mysecret 
+
+# applying secret as volume

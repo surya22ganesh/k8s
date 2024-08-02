@@ -1,0 +1,7 @@
+1) Edit the name: <insert-namespace-name-here> to required namespace name eg name: test
+
+2) kubectl apply -f filename.
+
+Then to create a resource under the specific namespace.
+
+3) kubectl apply -f filename -n namespacename , kubectl get pods -n namespacename.
