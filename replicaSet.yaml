@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-app
+      tier: frontend   
+    # matchExpressions: ##we can also select like this
+    #   - {key: tier, operator: In, values: [frontend]}
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+        tier: frontend
+    spec:
+      containers:
+      - name: nginxcontainer
+        image: nginx
+
+
+# to increase/decrease the replicas in RS
+# kubectl scale rs rsName --replicas=5
