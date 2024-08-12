@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: suryaingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx  
+  rules:
+  - host: prod.suryalearns.shop
+    http:
+      paths:
+      - path: /page1
+        pathType: Prefix
+        backend:
+          service:
+            name: prod-deployment-np-service    #service name
+            port:
+              number: 80 
+      - path: /page2
+        pathType: Prefix
+        backend:
+          service:
+            name: prod-deployment2-np-service    #service name
+            port:
+              number: 80 
