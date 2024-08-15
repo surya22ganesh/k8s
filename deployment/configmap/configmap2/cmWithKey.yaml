@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment1
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1 # no of pods
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP 
+          volumeMounts:
+          - name: myconfvolume # Volume to be attached.
+            mountPath: "/newdirectory" # directory to be created in container
+      volumes:
+      - name: myconfvolume # Volume name
+        configMap:
+          name: myconfcm
+          items:
+          - key: exampleconfig2.conf #existing configmap filename 
+            path: myconf2.conf  # configmap filename to be created under mountPath: "/newdirectory"
+          - key: exampleconfig.conf
+            path: myconf.conf
+
+# items:
+#  - key: exampleconfig2.conf -> if you dontknow know the filename then # kubectl edit cm cmName # under DATA you can find the keys.   
+
+# applying config Map as volume
+

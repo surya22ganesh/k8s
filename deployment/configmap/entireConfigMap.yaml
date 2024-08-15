@@ -19,10 +19,12 @@ spec:
             - containerPort: 3306
               protocol: TCP 
           volumeMounts:
-          - name: myvolume
-            mountPath: "/etc/myvolume"
-            readOnly: true 
+          - name: myvolume # Volume to be attached.
+            mountPath: "/newdirectory" # directory to be created in container
+            # readOnly: true 
       volumes: 
-      - name: myvolume
+      - name: myvolume # Vol name
         configMap: 
-          name: myconfmap1 
+          name: myconfmap1 # CM name
+
+# This will apply the entire ConfigMap into our POD.
