@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+         - name: myhostpathvol # name of the vol to attach to pod/container
+           mountPath: /mycontainerhostpath # Directory to be created in Container. 
+      volumes:
+        - name: myhostpathvol  # name of the volume
+          hostPath:
+            path: /root/myhostpath # Directory to be created in Host/Worker Node. This Directory wont be deleted after POD dies. you can check by logging or ssh into the worker node and check this directory.
+
+# myhostpath and mycontainerhostpath Directories will be in Sink.
