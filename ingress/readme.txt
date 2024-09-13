@@ -12,12 +12,17 @@
 
 5) Network Type Load balancer named ingress-nginx-controller will be created.
 
-6) kubectl apply -f ingress.yaml . Apply the Ingress.yaml file.
+6)  kubectl get ingressclass -A 
 
-7) Now check whether our Ingress file is read by our Ingress Controller using.
+7) ingress-nginx-controller gives us nginx. This should be used in ingress yaml/manifest file . spec : ingressClassName: nginx .
+
+8) kubectl apply -f ingress.yaml . Apply the Ingress.yaml file.
+
+9) Now check whether our Ingress file is read by our Ingress Controller using.
 
 -> kubectl get pods -n ingress-nginx
 
 ->  kubectl logs ingress-nginx-controller-784997fdc7-7mcdl     (Ingress Controller Pod)
 
-8)  kubectl get ing
+10)  kubectl get ing
+
