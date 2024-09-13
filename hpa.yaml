@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: amazon-deployment-hpa           
+  namespace: suryans
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: amazon-deployment # deployment name. Here we are not using selectors and labels.
+    apiVersion: apps/v1
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

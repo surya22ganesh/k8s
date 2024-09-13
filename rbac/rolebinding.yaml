@@ -1,0 +1,14 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rbac-role-binding-role-binding
+  namespace: test
+subjects:
+  - kind: User
+    name: ganesh
+    apiGroup: ""
+roleRef:
+  kind: Role  # this must be Role or ClusterRole
+  name: myfirstrole
+  apiGroup: ""
