@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+   
+    # # TYPE1
+    # spec:
+    #   nodeName: i-04dc997b68e2fcd01 #kubectl get nodes to get nodeName
+
+      # # TYPE2
+      # spec:
+      # nodeSelector:
+      #   os: coloros # nodeselector works by selecting nodes by labels of nodes , kubectl label node nodeName os=coloros   
+
+      # #TYPE3 NODE AFFINITY
+      # spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: os
+      #               operator: In
+      #               values: [coloros]  
+      
+      # #TYPE 4 POD AFFINITY/ANTIAFFINITY
+      # spec:
+      # affinity:
+      #   podAffinity: # or use podAntiAffinity: 
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector: # here we should select the pod label 
+      #           matchExpressions:
+      #             - key: app # pod label 
+      #               operator: In
+      #               values:
+      #                 - nginx # pod label
+      #         topologyKey: kubernetes.io/hostname
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+          

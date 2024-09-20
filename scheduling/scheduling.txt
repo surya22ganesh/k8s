@@ -1,0 +1,21 @@
+kubectl get nodes to get node names.
+
+nodeSelector:
+
+Step1 : add label to the nodes
+
+kubectl edit node NodeName
+
+under label: add key:value
+
+eg:
+label:
+os: linux
+           
+             or
+        
+kubectl label node nodeName key=value 
+
+kubectl get nodes --show-labels
+
+kubectl get nodes -l key=value
