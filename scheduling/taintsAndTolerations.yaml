@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+  labels:
+    app: sample
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample
+  template:
+    metadata:
+      labels:
+        app: sample
+    spec:
+      nodeName: i-04dc997b68e2fcd01
+      tolerations:
+          - key: env
+            operator: Equal
+            value: prod
+            effect: NoSchedule
+      containers:
+      - name: sample
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+

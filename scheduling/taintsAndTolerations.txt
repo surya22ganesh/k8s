@@ -1,0 +1,22 @@
+To Taint a node:
+
+kubectl taint node nodeName key:value:Type(NoSchedule or PreferNoSchedule or NoExecute) 
+
+                     or
+
+kubectl get nodes 
+
+kubectl edit node nodeName 
+
+1) In spec section
+
+taints:
+- effect:type eg)NoSchedule
+  key: keyname
+  value: value
+
+
+To untaint a node: (at last add - to untaint)
+
+kubectl taint node nodeName key:value:Type(NoSchedule or PreferNoSchedule or NoExecute)- 
+
