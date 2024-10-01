@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazonclone-deployment
+  namespace: suryans
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  selector:
+    matchLabels:
+      app: amazonclone
+  template:
+    metadata:
+      labels:
+        app: amazonclone
+    spec:
+      containers:
+      - name: amazonclone-container
+        image: surya22ganesh/amazonclone
+        ports:
+        - containerPort: 3000
+          
+        startupProbe:
+          httpGet:
+            path: /
+            port: 3000
+          failureThreshold: 30
+          periodSeconds: 10  
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 10  
+        
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          failureThreshold: 30
+          periodSeconds: 10
+
